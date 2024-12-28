@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+</head>
+
+<body>
+    <div class="w-full min-h-screen bg-zinc-900 text-white p-10">
+        <div class="flex justify-end w-full">
+            <a class="bg-red-500 rounded-md px-3 py-2 text-sm inline-block mb-5 " href="/logout">Logout</a>
+        </div>
+        <h3 class="text-3xl"> <span class="font-light">Hello</span>
+            <%= user.name%> 😊
+        </h3>
+        <h5 class="mb-5">You can create a new post</h5>
+        <form action="/post" method="post">
+            <textarea
+                class="w-1/3 resize-none bg-transparent block border-2 border-zinc-800 rounded-md p-3 outline-none"
+                name="content" placeholder="What's on your mind"></textarea>
+            <input class="px-3 py-2 bg-blue-500 rounded-md block mt-2 w-40 cursor-pointer text-sm" type="submit"
+                value="Create Post">
+        </form>
+
+        <div class="posts mt-20">
+            <div class="postContainer mt-5">
+                <% if(user.posts.length > 0){ %>
+                    <h3 class="text-zinc-400">Your Posts</h3>
+                <!-- user ke andar posts id's ko reverse kr ke loop lagao taki ki latest post upar aay -->
+                <% user.posts.reverse().forEach(function(post){ %> 
+                    <div class="post w-1/3 p-4 mb-4  rounded-md bg-zinc-800 border-[1px] border-zinc-700">
+                        <h4 class="text-blue-500 mb-2 "><%= user.name%></h4>
+                        <p class="text-sm tracking-tighter "><%= post.content%></p>
+                        <small class="mt-4 inline-block"><%= post.likes.length%> Likes</small>
+                        <div class="btns flex gap-5 mt-1">
+                            <a class="text-blue-500" href="/like/<%= post._id%>">
+                                <%= post.likes.indexOf(user._id) === -1 ? "Like": "Unlike" %>
+                            </a>
+                            <a class="text-zinc-600" href="/edit/<%= post._id%>">Edit</a>
+                            <a class="text-red-600" href="/delete/<%= post._id%>">Delete</a>
+                        </div>
+                    </div>
+               <% }) %> 
+               <% }else{ %>
+                <h3 class="text-zinc-400">No post yet!</h3>
+              <% }%>
+            </div>        
+        </div>
+
+
+    </div>
+</body>
+
+</html>

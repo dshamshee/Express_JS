@@ -1,0 +1,43 @@
+npm: Node Packeg Manager
+
+Note:
+1. Which Methods/Functions are install with core Node.js is called as Built-in Modules
+Built-in Modules are used to perform the basic operations like file handling, network operations, etc
+
+2. which Methods/Functions we download and install using npm is called as Packeges 
+Packages are used to perform the complex operations like database operations, web development, etc
+
+Install Packages using npm: npm install <package_Name>
+Uninstall Packages using npm: npm uninstall <package_Name>
+Update Packages using npm: npm update <package_Name>
+List all installed packages using npm: npm list
+List all installed packages in detail using npm: npm list -g
+List all installed packages in detail with version using npm: npm list -g --depth=0
+List all installed packages in detail with version and dependencies using npm: npm list -g --depth=
+List all installed packages in detail with version and dependencies and devDependencies using npm: npm list -g
+List all installed packages in detail with version and dependencies and devDependencies and peerDependencies using npm: npm
+
+Dependencies: Packeges and Packages ki dependencies 
+DevDependencies: Packeges and Packages ki dependencies jo development ke liye use hoti hai and production (After Deployment) me nahi hoti hai
+
+npm start & npm test: jab in 2 scripts ko terminal me chalate h to "run" likhne ki jarurat nhi hoti 
+baki in dono ke alawa (npm run <script_name>) koi bhi script ko terminal me chalate h to "run" likhne ki jarurat hoti hai
+
+
+ExpressJS: it is a npm package which is used to create web server
+ExpressJS is a framework for Node.js
+
+To start servere: node <script.js> 
+but in this case when perform some changes on script file then we need to restart the server manually 
+
+To avoid this problem: We can use nodemon packege 
+installation: npm install -g nodemon
+Usage: nodemon <script.js> OR npx nodemon <script.js>
+nodemon is a package which is used to restart the server automatically when we make any changes in script
+
+
+#Form handling and working with the forms 
+Hanlde backend process of forms and making sure the data coming from any library, framework, templeting engnies, we still hanlde it at the backend 
+
+Cookie: Jab bhi ham browser se koi request server ko bhejte hai to server hmse puchta hai aap kon ho (login kro) fir use batate hai ki ham kon hai login kr ke fir server request ko process karta hai or responce deta hai or sath me ek string deta hai (Cookie) yahi cookie hamare browser me store ho jata hai fir agli baar jab hm koi request bhejte hai to request ke sath ye cookie attached ho kr server ke paas chala jata hai or isi cookie se server pahchanta hai ki aap kon ho fir verify kr ke apka request process kr ke respoce deta hai 
+Session: browser or server ke bich ye jo request and respoce hota hai cookie ke through usi ko session bolte hai, and jab tak cookie active hai tab tak session active hai jab tak cookie expire nhi ho jata hai tab tak session active rehta hai

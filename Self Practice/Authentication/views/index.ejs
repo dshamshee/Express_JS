@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Unit 2</title>
+    <link rel="stylesheet" href="/stylesheets/output.css">
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+</head>
+<body>
+   <div class="w-full h-screen bg-zinc-900 text-white p-10">
+    <h1 class="text-3xl mb-3">Create user</h1>
+    <form action="/create" method="post">
+        <input class="px-3 py-2 rounded-md bg-transparent border-2 border-zinc-800 outline-none" type="text" placeholder="Enter your username" name="username">
+        <input class="px-3 py-2 rounded-md bg-transparent border-2 border-zinc-800 outline-none" type="email" name="email" placeholder="Email" id="">
+        <input class="px-3 py-2 rounded-md bg-transparent border-2 border-zinc-800 outline-none" type="password" placeholder="password" name="password" id="">
+        <input class="px-3 py-2 rounded-md bg-transparent border-2 border-zinc-800 outline-none" type="text" name="age" placeholder="Age" id="">
+        <input class="px-5 py-2 rounded-md bg-blue-500" type="submit" value="Create User">
+        <a class="px-5 py-2 rounded-md bg-blue-500" href="/login">Login</a>
+    </form>
+   </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+For Authentication Unit 2:
+
+Steps to do:
+Create user account 
+    mongoose
+    schema
+    model 
+    usercreate -> password -> hash 
+    jwt token -> cookie
+
+    Loging -> token -> decrypt -> email 

@@ -1,0 +1,5 @@
+1. netstat -ano | findstr :3000
+taskkill /PID <PID> /F  
+
+$2b$10$f.r.X0zQaG9dGeMe169b3uOY8ryZcdQ4R2Aub7Uo.0T43GsG8F7qa
+danish786

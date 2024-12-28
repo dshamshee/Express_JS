@@ -1,0 +1,17 @@
+{
+  "name": "expressjs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Danish Shamshee",
+  "license": "ISC",
+  "dependencies": {
+    "accessibility": "^3.0.9",
+    "cookie-parser": "^1.4.7",
+    "express": "^4.21.1",
+    "one-liner-joke": "^1.2.2"
+  }
+}
