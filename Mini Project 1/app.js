@@ -6,18 +6,36 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const upload = require('./config/multerconfig')
 
-app.set('view engine', 'ejs')
+
+app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
+
 // User registration Form
 app.get('/', function (req, res) {
-    // if(isLoggedIn) res.redirect('/profile')
     res.render('index');
 })
+
+
+app.get('/profile/upload', function (req, res) {
+    res.render('profileupload');
+})
+
+// user profile Picture Upload (Using Multer)
+app.post('/upload', isLoggedIn, upload.single('image'),async function(req, res){
+    console.log(req.file);
+    let profile = req.file.filename; // accept the name of the file which is saved on the upload folder
+    let user = await userModel.findOne({ _id: req.user.userid }); // userid is accepted from the token which is set in the isLoggedin function
+    user.profilepic = profile;
+    await user.save();
+    res.redirect('/profile');
+})
+
 
 // Protected Profile Rout: If the user is logged in, redirect them to the dashboard (check through isLoggedIn function)
 app.get('/profile', isLoggedIn, async function (req, res) {
@@ -140,9 +158,18 @@ app.get('/logout', function (req, res) {
 
 // It is a middleware function to check if the user is logged in or not vie Cookies 
 function isLoggedIn(req, res, next) {
-    if (req.cookies.token === "") res.redirect("/login"); // if there is no token, the user is not logged in
+    const token = req.cookies?.token;
+    if(!token){
+        res.redirect('/login');
+        // console.log("first");
+    }
+    else if (token === ""){    
+        res.redirect("/login"); // if there is no token, the user is not logged in
+        // console.log("second");
+    }
     // if there is a token, the user is logged in
     else {
+        // console.log("third");
         let data = jwt.verify(req.cookies.token, "SecretKey");
         req.user = data;
         next();

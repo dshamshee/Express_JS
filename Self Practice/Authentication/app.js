@@ -63,6 +63,54 @@ app.get('/', async function (req, res) {
 });
 
 
+// POst Like and Unlike 
+app.get('/like/:id', async function(req, res){
+    const post = await postModel.findOne({_id: req.params.id});
+    const token = req.cookies?.token;
+    const data = jwt.verify(token, "secretString");
+    const userEmail = data.email;
+    const user = await userModel.findOne({email: userEmail});
+
+    if(post.likes.indexOf(user._id) === -1){
+        post.likes.push(user._id);
+        await post.save();
+    }
+    else{
+        post.likes.splice(post.likes.indexOf(user._id), 1);
+        await post.save();
+    }
+
+
+    res.redirect('/');
+    // console.log(post.user.username);
+})
+
+
+app.get('/edit/:id', async function(req, res){
+    const postID = req.params.id;
+    let post = await postModel.findOne({_id: postID})
+    res.render('edit', {post});
+})
+
+
+app.post('/update/:id', async function(req, res){
+    let {title, caption, image} = req.body;
+    let post = await postModel.findOneAndUpdate({_id: req.params.id}, {title: title, caption: caption, image: image});
+    res.redirect('/');
+})
+
+
+app.get('/delete/:id', async function(req, res){
+    let post = await postModel.deleteOne({_id: req.params.id}); // Find and delete the post
+
+    const data = jwt.verify(req.cookies.token, "secretString"); // Verify the token
+    const userEmail = data.email; // get the email from the token
+    const user = await userModel.findOne({email: userEmail}); // find the user with the email
+    user.posts.splice(user.posts.indexOf(req.params.id), 1); // remove the post from the user's posts array
+    await user.save(); // save the user with the updated posts array
+
+    res.redirect('/'); // redirect to the '/' route
+})
 
 
 // Create User
@@ -116,13 +164,14 @@ app.post('/logeduser', async function (req, res) {
 })
 
 app.post('/createpost', async function (req, res) {
-    let { title, email, image } = req.body;
+    let { title, email, image, caption } = req.body;
     let user = await userModel.findOne({ email: email });
 
     let post = await postModel.create({
         title,
         image,
-        user: user._id
+        user: user._id,
+        caption
     })
     user.posts.push(post._id);
     user.save()
