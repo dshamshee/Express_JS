@@ -11,30 +11,39 @@
 <body class="w-auto h-auto">
     <div class="w-full h-screen bg-zinc-900 text-white p-10">
         <!-- User and Input Feilds -->
-        <div class="UserAndInputs  flex flex-row gap-5">
+        <div class="UserAndInputs  flex flex-row gap-5 ">
             <div class="users flex gap-3 flex-wrap">
-                <div class="user w-72 p-4 bg-zinc-800 rounded-lg">
-
-                    <h3 class="text-3xl tracking-tighter mt-3">
-                        <%= user.username %>
-                    </h3>
-                    <h5 class="text-zinc-500 text-xl">
-                        <%= user.email %>
-                    </h5>
-
-                    <div class="flex gap-3 mt-10">
-                        <a class="text-red-500" href="/logout">LogOut</a>
+                <div class="flex flex-row gap-5 user w-[360px] p-4 bg-zinc-800 rounded-lg">
+                    <div>
+                        <h3 class="text-3xl tracking-tighter mt-3">
+                            <%= user.username %>
+                        </h3>
+                        <h5 class="text-zinc-500 text-xl">
+                            <%= user.email %>
+                        </h5>
+                        <div class="flex gap-3 mt-10">
+                            <a class="text-red-500" href="/logout">LogOut</a>
+                        </div>
                     </div>
+                    <div class="profile-picture w-20 h-20 bg-red-600 object-cover overflow-hidden rounded-full">
+                        <img src="/images/uploads/<%= user.profilepic %>" alt="profile picture">
+                    </div>
+
                 </div>
             </div>
 
             <div class="form mt-2 p-2">
                 <form action="/createpost" method="post">
-                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg " type="text" name="title" placeholder="Title">
-                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg " type="text" name="caption" placeholder="Caption">
-                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg " type="text" name="image" placeholder="Image URL">
-                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg hidden" type="text" name="email" placeholder="Email" value="<%=user.email%>">
-                    <input class="px-5 py-2 bg-blue-500 rounded-lg ml-3 cursor-pointer hover:bg-blue-800" type="submit" value="New Post">
+                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg "
+                        type="text" name="title" placeholder="Title">
+                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg "
+                        type="text" name="caption" placeholder="Caption">
+                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg "
+                        type="text" name="image" placeholder="Image URL">
+                    <input class="px-5 py-2 bg-transparent outline-none border-2 border-zinc-500 rounded-lg hidden"
+                        type="text" name="email" placeholder="Email" value="<%=user.email%>">
+                    <input class="px-5 py-2 bg-blue-500 rounded-lg ml-3 cursor-pointer hover:bg-blue-800" type="submit"
+                        value="New Post">
                 </form>
             </div>
         </div>
@@ -43,26 +52,34 @@
         <!-- All Posts -->
         <h3 class="  text-zinc-400 mt-5">Your Posts</h3>
         <div class="Posts flex gap-3 flex-wrap mt-1">
-                
-            <% if(allPosts.length > 0 ) { %>
+
+            <% if(allPosts.length> 0 ) { %>
                 <% allPosts.reverse().forEach(function(post){ %>
                     <div class="user w-72 p-4 bg-zinc-800 rounded-lg">
                         <div class="image w-full h-72 bg-zinc-700 rounded-lg overflow-hidden">
                             <img class="w-full h-full object-cover object-center" src="<%= post.image %>" alt="">
                         </div>
-                        <h3 class="text-xl tracking-tighter mt-3"> <%= post.title %> </h3>
-                        <h4 class="text-zinc-400 tracking-tighter mt-3"> <%= post.caption%></h4>
-                        <h5 class="text-zinc-500 mt-2"><%= post.likes.length%> Likes</h5>
+                        <h3 class="text-xl tracking-tighter mt-3">
+                            <%= post.title %>
+                        </h3>
+                        <h4 class="text-zinc-400 tracking-tighter mt-3">
+                            <%= post.caption%>
+                        </h4>
+                        <h5 class="text-zinc-500 mt-2">
+                            <%= post.likes.length%> Likes
+                        </h5>
                         <div class="flex gap-3 mt-1">
-                            <a class="text-pink-500" href="/like/<%= post._id%>"> <%= post.likes.indexOf(user._id) === -1 ? "Like": "Unlike" %> </a>
+                            <a class="text-pink-500" href="/like/<%= post._id%>">
+                                <%= post.likes.indexOf(user._id)===-1 ? "Like" : "Unlike" %>
+                            </a>
                             <a class="text-zinc-500" href="/edit/<%= post._id%>"> Edit </a>
                             <a class="text-red-500" href="/delete/<%= post._id %>">Delete</a>
                         </div>
                     </div>
-               <% }) %>
-          <%  } else{  %>
-            <h1 class="text-zinc-500">No Post Found</h1>
-         <% } %>
+                    <% }) %>
+                        <% } else{ %>
+                            <h1 class="text-zinc-500">No Post Found</h1>
+                            <% } %>
         </div>
 
     </div>

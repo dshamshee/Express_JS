@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     username: String,
     email: String, 
     password: String,
+    profilepic: {type: String, default: "default.jpg"},
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'

@@ -6,6 +6,7 @@ const userModel = require('./models/user'); // Import the user model
 const postModel = require('./models/post'); // Import the post model
 const bcrypt = require('bcrypt'); // Import the bcrypt library for password hashing
 const jwt = require('jsonwebtoken');
+const upload = require('./config/multer');
 
 
 
@@ -176,6 +177,28 @@ app.post('/createpost', async function (req, res) {
     user.posts.push(post._id);
     user.save()
     res.redirect('/');
+})
+
+
+app.get('/upload', function(req, res){
+    res.render('profilepic');
+})
+
+
+app.post('/profilepic', upload.single('image'), async function(req, res){
+    console.log("file uploaded");
+    const token = req.cookies?.token; // Safe access (check if cookie exist or not)
+    if (!token) {
+        return res.status(401).render("index"); // Redirect to login if no token
+    }
+
+    const data = jwt.verify(token, "secretString");
+    const userEmail = data.email;
+    let user = await userModel.findOne({email: userEmail});
+    user.profilepic = req.file.filename;
+    await user.save();
+
+    res.redirect('/'); 
 })
 
 // Logout User
